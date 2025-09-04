@@ -13,3 +13,48 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model UserDrivers {
+  id    Int     @default(autoincrement()) @id
+  name  String?
+  lastName String?
+  phone String?
+  email String  @unique
+  createdAt DateTime @default(now())
+}
+
+model UserDispatch {
+  id    Int     @default(autoincrement()) @id
+  name  String?
+  lastName String?
+  phone String?
+  email String  @unique
+  createdAt DateTime @default(now())
+}
+
+model UserOperator {
+  id    Int     @default(autoincrement()) @id
+  name  String?
+  lastName String?
+  phone String?
+  email String  @unique
+  createdAt DateTime @default(now())
+}
+
+model UserRealState {
+  id    Int     @default(autoincrement()) @id
+  name  String?
+  lastName String?
+  phone String?
+  email String  @unique
+  createdAt DateTime @default(now())
+}
+
+model UserOther {
+  id    Int     @default(autoincrement()) @id
+  name  String?
+  lastName String?
+  phone String?
+  email String  @unique
+  createdAt DateTime @default(now())
+}
