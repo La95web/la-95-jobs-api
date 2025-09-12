@@ -1,17 +1,14 @@
 import dotenv from 'dotenv';
-dotenv.config({path: './.env.local'});
+
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config({ path: './.env.local' });
+}
 
 import cors from 'cors'; 
-import { PrismaClient } from '../generated/prisma';
+import { PrismaClient } from '@prisma/client';
 import express from 'express';
 
-const prisma = new PrismaClient({
-  datasources: { 
-    db: { 
-    url: process.env.DATABASE_URL,
-    }
-  }
-});
+const prisma = new PrismaClient();
 
 const app = express();
 
@@ -114,7 +111,8 @@ app.post('/userOther', async (req, res) => {
   }
 });
 
+const PORT = process.env.PORT || 3000;
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log('Server is running on http://localhost:3000');
 });
