@@ -1,8 +1,18 @@
+import dotenv from 'dotenv';
+dotenv.config({path: './.env.local'});
+
 import cors from 'cors'; 
 import { PrismaClient } from '../generated/prisma';
 import express from 'express';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({
+  datasources: { 
+    db: { 
+    url: process.env.DATABASE_URL,
+    }
+  }
+});
+
 const app = express();
 
 app.use(cors());
@@ -47,7 +57,7 @@ app.post('/userDispatch', async (req, res) => {
   }
 });
 
-app.get('/userOperator ', async (_req, res) => {
+app.get('/userOperator', async (_req, res) => {
   const operators = await prisma.userOperator.findMany();
   res.json(operators);
 });
