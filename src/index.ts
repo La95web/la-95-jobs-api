@@ -111,6 +111,25 @@ app.post('/userOther', async (req, res) => {
   }
 });
 
+app.get('/truckBuyer', async (_req, res) => { 
+  const truckBuyers = await prisma.truckBuyer.findMany();
+  res.json(truckBuyers);
+});
+
+// new posts
+app.post('/truckBuyer', async (req, res) => {
+  const { name, lastName, phone, email } = req.body;
+
+  try {
+    const newTruckBuyer = await prisma.truckBuyer.create({
+      data: { name, lastName, phone, email }
+    });
+    res.status(201).json(newTruckBuyer);
+  } catch (error) {
+    res.status(400).json({ error: 'No se pudo registrar el comprador de camiones.' });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
