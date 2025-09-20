@@ -57,3 +57,12 @@ model UserOther {
   email String  @unique
   createdAt DateTime @default(now())
 }
+
+model TruckBuyer {
+  id    Int     @default(autoincrement()) @id
+  name  String?
+  lastName String?
+  phone String?
+  email String  @unique
+  createdAt DateTime @default(now())
+}
