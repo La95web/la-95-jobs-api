@@ -24,7 +24,7 @@ DROP TABLE "public"."UserOther";
 DROP TABLE "public"."UserRealState";
 
 -- CreateTable
-CREATE TABLE "public"."drivers" (
+CREATE TABLE "public"."UserDrivers" (
     "id" SERIAL NOT NULL,
     "name" TEXT,
     "lastName" TEXT,
@@ -32,11 +32,11 @@ CREATE TABLE "public"."drivers" (
     "email" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "drivers_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "UserDrivers_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "public"."dispatch" (
+CREATE TABLE "public"."UserDispatch" (
     "id" SERIAL NOT NULL,
     "name" TEXT,
     "lastName" TEXT,
@@ -44,11 +44,11 @@ CREATE TABLE "public"."dispatch" (
     "email" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "dispatch_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "UserDispatch_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "public"."owner_operator" (
+CREATE TABLE "public"."UserOperator" (
     "id" SERIAL NOT NULL,
     "name" TEXT,
     "lastName" TEXT,
@@ -56,11 +56,11 @@ CREATE TABLE "public"."owner_operator" (
     "email" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "owner_operator_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "UserOperator_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "public"."real_state" (
+CREATE TABLE "public"."UserRealState" (
     "id" SERIAL NOT NULL,
     "name" TEXT,
     "lastName" TEXT,
@@ -68,11 +68,11 @@ CREATE TABLE "public"."real_state" (
     "email" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "real_state_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "UserRealState_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "public"."others" (
+CREATE TABLE "public"."UserOther" (
     "id" SERIAL NOT NULL,
     "name" TEXT,
     "lastName" TEXT,
@@ -80,11 +80,11 @@ CREATE TABLE "public"."others" (
     "email" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "others_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "UserOther_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "public"."truck_buyer" (
+CREATE TABLE "public"."TruckBuyer" (
     "id" SERIAL NOT NULL,
     "name" TEXT,
     "lastName" TEXT,
@@ -92,23 +92,23 @@ CREATE TABLE "public"."truck_buyer" (
     "email" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "truck_buyer_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "TruckBuyer_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "drivers_email_key" ON "public"."drivers"("email");
+CREATE UNIQUE INDEX "drivers_email_key" ON "public"."UserDrivers"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "dispatch_email_key" ON "public"."dispatch"("email");
+CREATE UNIQUE INDEX "dispatch_email_key" ON "public"."UserDispatch"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "owner_operator_email_key" ON "public"."owner_operator"("email");
+CREATE UNIQUE INDEX "owner_operator_email_key" ON "public"."UserOperator"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "real_state_email_key" ON "public"."real_state"("email");
+CREATE UNIQUE INDEX "real_state_email_key" ON "public"."UserRealState"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "others_email_key" ON "public"."others"("email");
+CREATE UNIQUE INDEX "others_email_key" ON "public"."UserOther"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "truck_buyer_email_key" ON "public"."truck_buyer"("email");
+CREATE UNIQUE INDEX "truck_buyer_email_key" ON "public"."TruckBuyer"("email");
