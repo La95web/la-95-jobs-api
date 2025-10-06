@@ -7,7 +7,6 @@ if (process.env.NODE_ENV !== 'production') {
 import cors from 'cors'; 
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
-// import {adminRouter, adminJs} from './admin';
 
 const prisma = new PrismaClient();
 
@@ -16,8 +15,6 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
-
-// app.use(adminJs.options.rootPath, adminRouter);
 
 app.get('/userDrivers', async (_req, res) => {
   const drivers = await prisma.userDrivers.findMany();
