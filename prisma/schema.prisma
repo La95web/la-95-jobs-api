@@ -66,3 +66,11 @@ model TruckBuyer {
   email String  @unique
   createdAt DateTime @default(now())
 }
+
+model Comment {
+  id      Int      @id @default(autoincrement())
+  name    String
+  email   String
+  content String
+  createdAt DateTime @default(now())
+}
