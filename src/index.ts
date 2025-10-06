@@ -7,6 +7,7 @@ if (process.env.NODE_ENV !== 'production') {
 import cors from 'cors'; 
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
+// import {adminRouter, adminJs} from './admin';
 
 const prisma = new PrismaClient();
 
@@ -15,6 +16,8 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
+
+// app.use(adminJs.options.rootPath, adminRouter);
 
 app.get('/userDrivers', async (_req, res) => {
   const drivers = await prisma.userDrivers.findMany();
@@ -127,6 +130,26 @@ app.post('/truckBuyer', async (req, res) => {
     res.status(201).json(newTruckBuyer);
   } catch (error) {
     res.status(400).json({ error: 'No se pudo registrar el comprador de camiones.' });
+  }
+});
+
+app.get('/comments', async (_req, res) => { 
+  const comments = await prisma.comment.findMany();
+  res.json(comments);
+});
+
+// new posts
+
+app.post('/comments', async (req, res) => {
+  const { name, email, comment } = req.body;
+
+  try {
+    const newComment = await prisma.comment.create({
+      data: { name, email, content: comment }
+    });
+    res.status(201).json(newComment);
+  } catch (error) {
+    res.status(400).json({ error: 'No se pudo registrar el comentario.' });
   }
 });
 
