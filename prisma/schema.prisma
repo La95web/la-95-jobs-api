@@ -73,4 +73,7 @@ model Comment {
   email   String
   content String
   createdAt DateTime @default(now())
+  likes     Int      @default(0)
+  hearts    Int      @default(0)
+  fires     Int      @default(0)
 }
