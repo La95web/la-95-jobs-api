@@ -15,7 +15,8 @@
   "type": "commonjs",
   "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "migrate:deploy": "prisma migrate deploy",
+    "start": "npm run migrate:deploy && ts-node src/index.ts",
     "postinstall": "prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
