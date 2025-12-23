@@ -142,13 +142,33 @@ app.post('/comments', async (req, res) => {
 
   try {
     const newComment = await prisma.comment.create({
-      data: { name, email, content: comment }
+      data: { name, email, content: comment, likes:0, hearts:0, fires:0 }
     });
     res.status(201).json(newComment);
   } catch (error) {
     res.status(400).json({ error: 'No se pudo registrar el comentario.' });
   }
 });
+
+app.patch('/comments/:id/reaction', async (req, res)=> {
+  const {id} = req.params;
+  const {type} = req.body;
+
+  try {
+    let data = {};
+    if (type === 'like') data = {likes: {increment: 1}};
+    if(type === 'heart') data = {hearts: {increment: 1}};
+    if(type === 'fire') data = {fires: {increment: 1}};
+    const updateComment = await prisma.comment.update({
+      where: {id: parseInt(id)},
+      data
+    });
+
+    res.json(updateComment);
+  } catch (error){
+    res.status(404).json({error: 'No se pudo actualizar la reacción.' })
+  }
+})
 
 const PORT = process.env.PORT || 3001;
 
