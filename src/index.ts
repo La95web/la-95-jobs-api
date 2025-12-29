@@ -4,6 +4,10 @@ if (process.env.NODE_ENV !== 'production') {
   dotenv.config({ path: './.env.local' });
 }
 
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+
+
 import cors from 'cors'; 
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
@@ -14,6 +18,13 @@ const app = express();
 
 app.use(cors());
 
+const server = createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: 'https://la95truckingshow.com',
+    methods: ['GET', 'POST']
+  }
+});
 app.use(express.json());
 
 app.get('/userDrivers', async (_req, res) => {
@@ -129,6 +140,18 @@ app.post('/truckBuyer', async (req, res) => {
     res.status(400).json({ error: 'No se pudo registrar el comprador de camiones.' });
   }
 });
+// lisent comments
+io.on('connection', (socket) => {
+  console.log('a user connected');
+
+  socket.on('newComment', (comment) => {
+    io.emit('newComment', comment);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
 
 app.get('/comments', async (_req, res) => { 
   const comments = await prisma.comment.findMany();
@@ -144,6 +167,9 @@ app.post('/comments', async (req, res) => {
     const newComment = await prisma.comment.create({
       data: { name, email, content: comment, likes:0, hearts:0, fires:0 }
     });
+
+    io.emit('newComment', newComment);
+    
     res.status(201).json(newComment);
   } catch (error) {
     res.status(400).json({ error: 'No se pudo registrar el comentario.' });
@@ -164,6 +190,8 @@ app.patch('/comments/:id/reaction', async (req, res)=> {
       data
     });
 
+    io.emit('updateComment', updateComment);
+
     res.json(updateComment);
   } catch (error){
     res.status(404).json({error: 'No se pudo actualizar la reacción.' })
@@ -172,6 +200,6 @@ app.patch('/comments/:id/reaction', async (req, res)=> {
 
 const PORT = process.env.PORT || 3001;
 
-app.listen(PORT, () => {
-  console.log('Server is running on http://localhost:3001');
+server.listen(PORT, () => {
+  console.log('Server is running on http://localhost:{PORT');
 });
