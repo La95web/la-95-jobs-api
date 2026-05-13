@@ -23,8 +23,8 @@ router.get(
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // en producción debe ser true
-      sameSite: "lax",
+      secure: true, // en producción debe ser true
+      sameSite: "none",
     });
 
     res.redirect("https://la95truckingshow.com/commentForm");
