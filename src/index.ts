@@ -22,14 +22,14 @@ const prisma = new PrismaClient();
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:5500",
+  origin: "https://la95truckingshow.com",
   credentials: true
 }));
 
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5500',
+    origin: 'https://la95truckingshow.com',
     methods: ['GET', 'POST']
   }
 });
