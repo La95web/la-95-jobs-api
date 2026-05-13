@@ -27,7 +27,7 @@ router.get(
       sameSite: "lax",
     });
 
-    res.redirect("http://localhost:5500/commentForm"); // cambia esto luego a tu dominio
+    res.redirect("https://la95truckingshow.com/commentForm");
   }
 );
 
